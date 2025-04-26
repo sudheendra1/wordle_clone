@@ -1,0 +1,123 @@
+.wordle-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .tries-counter {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: black;
+  }
+  
+  .tries-counter span {
+    font-size: 1.5rem;
+    margin-left: 5px;
+  }
+  
+  .new-game-button {
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .new-game-button:hover {
+    background-color: #45a049;
+  }
+  
+  .new-game-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .message.success {
+    background-color: #dff2bf;
+    color: #4f8a10;
+  }
+  
+  .message.error {
+    background-color: #ffbaba;
+    color: #d8000c;
+  }
+
+  .target-word-reveal {
+    margin-top: 15px;
+    margin-right: 115px;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  
+  .target-word {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #4caf50;
+    letter-spacing: 2px;
+  }
+  
+  .game-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+  }
+  
+
+  /* Dark mode styles */
+.wordle-game.dark {
+  background-color: #121212;
+  color: white;
+}
+
+.wordle-game.dark .tries-counter {
+  color: white;
+}
+
+.wordle-game.dark .new-game-button {
+  background-color: #bb86fc;
+  color: black;
+}
+
+.wordle-game.dark .new-game-button:hover {
+  background-color: #9b5de5;
+}
+
+.wordle-game.dark .message.success {
+  background-color: #2e7d32;
+  color: white;
+}
+
+.wordle-game.dark .message.error {
+  background-color: #c62828;
+  color: white;
+}
+
+.wordle-game.dark .target-word {
+  color: #bb86fc;
+}

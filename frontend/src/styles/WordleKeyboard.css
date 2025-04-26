@@ -1,0 +1,69 @@
+.wordle-keyboard {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 10px;
+  }
+  
+  .keyboard-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+  
+  .keyboard-key {
+    min-width: 40px;
+    height: 58px;
+    margin: 0 3px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    background-color: #d3d6da;
+    border: none;
+    color: #000;
+    transition: background-color 0.2s;
+  }
+  
+  .keyboard-key:hover:not(.disabled) {
+    background-color: #bbbfc3;
+  }
+  
+  .keyboard-key.key-wide {
+    min-width: 65px;
+    font-size: 0.8rem;
+  }
+  
+  .keyboard-key.green {
+    background-color: #6aaa64;
+    color: white;
+  }
+  
+  .keyboard-key.yellow {
+    background-color: #c9b458;
+    color: white;
+  }
+  
+  .keyboard-key.gray {
+    background-color: #787c7e;
+    color: white;
+  }
+  
+  .keyboard-key.disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  @media (max-width: 500px) {
+    .keyboard-key {
+      min-width: 28px;
+      height: 48px;
+      margin: 0 2px;
+      font-size: 0.9rem;
+    }
+  
+    .keyboard-key.key-wide {
+      min-width: 48px;
+      font-size: 0.7rem;
+    }
+  }
+  

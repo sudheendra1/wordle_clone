@@ -1,5 +1,5 @@
 // API URL - adjust this to match your Flask server
-const API_URL = "http://127.0.0.1:5000"
+const API_URL = "https://wordle-clone-hd4g.onrender.com"
 
 // Start a new game
 export async function startNewGame() {

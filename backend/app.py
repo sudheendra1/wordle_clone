@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, session
 from flask_cors import CORS
 import random
 import requests
@@ -7,9 +7,9 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-# Global variables
-target_word = ""
-attempt_counter = 0
+# Secret key required for session handling
+app.secret_key = os.environ.get("SECRET_KEY", "your-dev-secret")
+
 MAX_TRIES = 6
 
 def get_feedback(guess, target):
@@ -32,7 +32,6 @@ def get_feedback(guess, target):
 
 @app.route('/get-word', methods=['GET'])
 def get_word():
-    global target_word, attempt_counter
     try:
         # Get 5-letter words from Datamuse
         response = requests.get('https://api.datamuse.com/words?sp=?????&max=1000')
@@ -42,14 +41,17 @@ def get_word():
             return jsonify({'error': 'No valid words found'}), 500
 
         target_word = random.choice(word_list)
-        attempt_counter = 0
+        session['target_word'] = target_word
+        session['attempt_counter'] = 0
+
         return jsonify({'message': 'New word set from API. You have 6 tries.'})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
 @app.route('/check-guess', methods=['POST'])
 def check_guess():
-    global attempt_counter
+    target_word = session.get('target_word')
+    attempt_counter = session.get('attempt_counter', 0)
 
     if not target_word:
         return jsonify({'error': 'Game not started'}), 400
@@ -67,7 +69,7 @@ def check_guess():
         valid_words = [w['word'] for w in check_response.json()]
         if guess not in valid_words:
             return jsonify({'error': 'Word not found in dictionary'}), 400
-    except Exception as e:
+    except Exception:
         return jsonify({'error': 'Validation failed'}), 500
 
     # Max attempt check
@@ -75,6 +77,8 @@ def check_guess():
         return jsonify({'error': 'No attempts left', 'game_over': True, 'target_word': target_word}), 403
 
     attempt_counter += 1
+    session['attempt_counter'] = attempt_counter
+
     feedback = get_feedback(guess, target_word)
 
     if guess == target_word:
@@ -97,6 +101,6 @@ def check_guess():
     })
 
 if __name__ == '__main__':
-     from waitress import serve
-     port = int(os.environ.get("PORT", 8080))
-     serve(app, host="0.0.0.0", port=port)
+    from waitress import serve
+    port = int(os.environ.get("PORT", 8080))
+    serve(app, host="0.0.0.0", port=port)
